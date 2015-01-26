@@ -93,13 +93,13 @@ def objectAt(pos): #--------------- several changes here
                 return obj
     return None
 
-def moveForward(obj):
+def sendForward(obj):
     world = g.world.world
     index = world.index(obj)
     if index < len(world):
         world.insert(index+1, world.pop(index))
 
-def moveBackward(obj):
+def sendBackward(obj):
     world = g.world.world
     index = world.index(obj)
     if index != 0:
