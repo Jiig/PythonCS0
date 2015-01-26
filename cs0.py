@@ -17,18 +17,18 @@ from Constants import *
 from GObj import *
 
 window = g.world
-  
-###### GUI Editing 
+
+###### GUI Editing
 
 def inWindow(obj):
     return window.inWorld(obj)
 
-def add(obj, xPos=None, yPos=None):#------------------- 7/30 modified with defaults 
+def add(obj, xPos=None, yPos=None):#------------------- 7/30 modified with defaults
     window.add(obj, xPos, yPos)
 
 def remove(obj):
     window.remove(obj) #----------------------- 7/30 (obj) was missing
-    
+
 def removeAll(): #------------------------------ 8/1 we need this, removes all objects from the window
     window.world = []
 
@@ -44,7 +44,7 @@ def setSize(width, height):
 
 def setColor(color):
     window.setColor(color)
-    
+
 def pause(t):
     if  (not g.multithreading) and g.running:
         #print("fliping Display")
@@ -59,22 +59,22 @@ def start(thread=False):
 
 def stop():
     Engine.stop()
-    
-    
+
+
 ######## Event Handeling
 
 def mouseClickedEvent(handle):
     Events.addMouseClickedEvent(handle)
-    
+
 def mouseReleasedEvent(handle):
     Events.addMouseReleasedEvent(handle)
-    
+
 def mouseMovedEvent(handle):
     Events.addMouseMovedEvent(handle)
-    
+
 def keyPressedEvent(handle):
     Events.addKeyPressedEvent(handle)
-    
+
 def keyReleasedEvent(handle):
     Events.addKeyReleasedEvent(handle)
 
@@ -92,37 +92,28 @@ def objectAt(pos): #--------------- several changes here
         if type(obj) is not Label and collides(obj,p): #can't collide with a Label
                 return obj
     return None
-        
+
 def moveForward(obj):
     world = g.world.world
-    for i in range(len(world)):
-        if world[i] is obj and i is not 0:
-            world[i], world[i-1] = world[i-1], world[i]
-            return
-    
+    index = world.index(obj)
+    if index < len(world):
+        world.insert(index+1, world.pop(index))
+
 def moveBackward(obj):
     world = g.world.world
-    for i in range(len(world)):
-        if world[i] is obj and i is not 0:
-            world[i], world[i-1] = world[i-1], world[i]
-            return
-        
+    index = world.index(obj)
+    if index != 0:
+        world.insert(index-1, world.pop(index))
+
 def sendToFront(obj):
     world = g.world.world
-    for i in range(len(world)):
-        if world[i] is obj and i is not 0:
-            for j in reversed(range(1,i+1)):
-                world[j], world[j-1] = world[j-1], world[j]
-            return 
-        
+    index = world.index(obj)
+    world.append(world.pop(index))
+
 def sendToBack(obj):
     world = g.world.world
-    for i in range(len(world)):
-        if world[i] is obj and i is not 0:
-            for j in range(i,len(world)):
-                world[j], world[j+1] = world[j+1], world[j]
-            return 
-
+    index = world.index(obj)
+    world.insert(0, world.pop(index))
 #-------------------------------------- my random functions
 def randomSeed(val):
     random.seed(val)
@@ -133,24 +124,24 @@ def randomInt(min, max = None): #clever, I didn't know about None
         return random.randint(0, min)
     else:
         return random.randint(min, max)
-    
+
 def randomDouble(min, max = None):
     #return random double in range [min, max) or [0, min)
     if max is None:
         return (min)*random.random()
     else:
         return (max-min)*random.random() + min
-    
+
 def randomBoolean():
     v = randomInt(1, 2)
     if v == 1: return True
     else: return False
-        
-        
+
+
 def randomProbability(p):
     r = randomDouble(1)
     if r < p: return True
     else: return False
-    
+
 def waitForClick():
     Events.waitForClick()

@@ -6,23 +6,33 @@ setCaption("hello")
 charlie = Circle(10, RED, 0,0) + Circle(10, YELLOW, 5,5) #+ Rectangle(10,15, AQUA,0, 10)
 #print(type(charlie))
 #add(sam, 326, 119)
-#charlie += sam 
-b = Rectangle(10,15, AQUA,0, 10)
-add(charlie, 321, 114)
+#charlie += sam
+b = Rectangle(10,15, AQUA, 5, 10)
+c = Rectangle(10, 15, BROWN, 5, 15)
+#add(charlie, 321, 114)
 add(b)
+add(c)
 
 def printEvent(evt):
     print(str(evt))
-    
+
 def mouseDrag(evt):
     charlie.setLocation(evt.pos[0], evt.pos[1])
 
-    
-mouseClickedEvent(printEvent)
+def mouseClick(evt):
+    sendToBack(c)
+
+def key(evt):
+    if evt.key == KEY_A:
+        moveForward(b)
+    if evt.key == KEY_B:
+        moveBackward(b)
+
+mouseClickedEvent(mouseClick)
 mouseReleasedEvent(printEvent)
 #mouseMovedEvent(mouseClick)
 mouseDraggedEvent(mouseDrag)
-keyPressedEvent(printEvent)
+keyPressedEvent(key)
 keyReleasedEvent(printEvent)
 
 start(thread = False)
