@@ -10,7 +10,7 @@ import threading
 from Constants import *
 
 class World:
-    
+
     def __init__(self):
         self._lock = threading.Lock()
         self.world = []
@@ -18,7 +18,7 @@ class World:
         self.height = 500
         self.caption = "Game Window"
         self.color = WHITE
-        
+
     def acquire(self):
         self._lock.acquire()
     def release(self):
@@ -31,12 +31,12 @@ class World:
     def setSize(self, width, height):
         self.width = width
         self.height = height
-        
+
     def setCaption(self, caption):
         self.caption = caption
     def setColor(self, color):
         self.color = color
-        
+
     def add(self, obj, xPos, yPos):
         if xPos is None or yPos is None:
             xPos = obj.x
@@ -46,7 +46,7 @@ class World:
         #print(self.world)
     def remove(self, obj):
         self.world.remove(obj)
-        
+
     def inWorld(self, obj):
         for gobj in self.world:
             if obj is gobj:

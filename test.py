@@ -7,28 +7,37 @@ charlie = Circle(10, RED, 0,0) + Circle(10, YELLOW, 5,5) #+ Rectangle(10,15, AQU
 #print(type(charlie))
 #add(sam, 326, 119)
 #charlie += sam
-b = Button("This is a button", 30, BLACK, WHITE, 100, 100)
-add(charlie, 321, 114)
+
+b = Rectangle(10,15, AQUA, 5, 10)
+c = Rectangle(10, 15, BROWN, 5, 15)
+#add(charlie, 321, 114)
+
 add(b)
+add(c)
 
 
 
 def printEvent(evt):
     print(str(evt))
 
-def clicky(evt):
-    if b.isClicked(evt):
-        b.setText("CLICK!")
-
 def mouseDrag(evt):
     charlie.setLocation(evt.pos[0], evt.pos[1])
 
+def mouseClick(evt):
+    sendToBack(c)
 
-mouseClickedEvent(clicky)
+def key(evt):
+    if evt.key == KEY_A:
+        sendForward(b)
+    if evt.key == KEY_B:
+        sendBackward(b)
+
+mouseClickedEvent(mouseClick)
+
 mouseReleasedEvent(printEvent)
 #mouseMovedEvent(mouseClick)
 mouseDraggedEvent(mouseDrag)
-keyPressedEvent(printEvent)
+keyPressedEvent(key)
 keyReleasedEvent(printEvent)
 
 start(thread = False)
