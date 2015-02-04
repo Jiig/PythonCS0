@@ -25,23 +25,23 @@ class GObj:
         self.y = y
         self.color = color
         self.visible = True
-        
+
     def move(self, xv, yv):
         self.x += xv
         self.y += yv
-        
+
     def setLocation(self, x, y):
         self.x = x
         self.y = y
 
     def getLocation(self):
         return (self.x, self.y)
-    
+
     def getX(self): #------------------------------- 7/30 added
         return self.x
-   
+
     def getY(self): #------------------------------- 7/30 added
-        return self.y    
+        return self.y
 
     def setColor(self, color):
         self.color = color
@@ -52,7 +52,7 @@ class GObj:
         self.visible = val
     def getVisible(self):
         return self.visible
-    
+
     def acquire(self):
         self._lock.acquire()
     def release(self):
@@ -78,17 +78,17 @@ class GObj:
             self.cy = self.y
             self.y = 0
             return GComp(self, obj)
-            
+
 class GComp(GObj):
-    
-    def __init__(self, obj1, obj2): 
+
+    def __init__(self, obj1, obj2):
         GObj.__init__(self, WHITE, 0, 0)
         self.objs = [obj1,obj2]
-        
+
     def move(self, xv, yv):
         self.x += xv
         self.y += yv
-        self.updateQualities();      
+        self.updateQualities();
     def setLocation(self, x, y):
         self.x = x
         self.y = y
@@ -119,11 +119,11 @@ class GComp(GObj):
             elif obj.y <= minY:
                 minY = obj.y
         return maxY-minY
-            
+
     def draw(self, window):
         for obj in self.objs:
             obj.draw(window);
-            
+
     def __add__(self, obj):
         if type(obj) is GComp:
             self.objs += obj.objs
@@ -150,7 +150,7 @@ class GComp(GObj):
             elif obj.y <= minY:
                 minY = obj.y
         return ((minX, minY), (maxX,maxY))
-        
+
 class Circle(GObj):
 
     def __init__(self, diam, color, x = 0, y = 0):
@@ -162,17 +162,17 @@ class Circle(GObj):
         self.diam = diam
     def getDiameter(self):
         return self.diam
-        
+
     def draw(self, window):
         if self.visible:
             pygame.draw.circle(window, self.color, (int(self.x+self.diam/2), int(self.y+self.diam/2)), int(self.diam/2), 0)
-    
+
     def _getBox(self):
         x = self.x
         y = self.y
         r = self.diam/2
         return ((x, y),(x+2*r, y+2*r))
-    
+
 class Square(GObj): #----------------------------- 7/30 add this class
                     #----------------------------- haven't checked it thoroughly
     def __init__(self, width, color, x = 0, y = 0):
@@ -180,17 +180,17 @@ class Square(GObj): #----------------------------- 7/30 add this class
         self.width = width
         self.height = width
         self._type = "Square"
- 
+
     def setWidth(self, width):
         self.width = width
-        
+
     def getWidth(self):
         return self.width
-        
+
     def draw(self, window):
         if self.visible:
             pygame.draw.rect(window, self.color, (self.x, self.y, self.width, self.height), 0)
-            
+
     def _getBox(self):
         x = self.x
         y = self.y
@@ -216,21 +216,21 @@ class Oval(GObj):
         return self.width
     def getHeight(self):
         return self.height
-        
+
     def draw(self, window):
         if self.visible:
             pygame.draw.ellipse(window, self.color, (self.x, self.y, self.width, self.height), 0)
-    
+
     def _getBox(self):
         x = self.x
         y = self.y
         w = self.width
         h = self.height
         return ((x, y),(x+w, y+h))
-    
-    
+
+
 class Rectangle(GObj):
-    
+
     def __init__(self, width, height, color, x = 0, y = 0):
         GObj.__init__(self, color, x, y)
         self.width = width
@@ -248,20 +248,20 @@ class Rectangle(GObj):
         return self.width
     def getHeight(self):
         return self.height
-        
+
     def draw(self, window):
         if self.visible:
             pygame.draw.rect(window, self.color, (self.x, self.y, self.width, self.height), 0)
-            
+
     def _getBox(self):
         x = self.x
         y = self.y
         w = self.width
         h = self.height
-        return ((x, y),(x+w, y+h)) 
+        return ((x, y),(x+w, y+h))
 
 class Label(GObj):
-    
+
     def __init__(self, size, color, message, x = 0, y = 0):
         GObj.__init__(self, color, x, y)
         self.message = message
@@ -276,12 +276,48 @@ class Label(GObj):
     def setText(self, message):
         self.message = message
     def getText(self): #------------------ 7/30 added
-        return self.message    
-    
+        return self.message
+
     def draw(self, window):
         if self.visible:
             window.blit(pygame.font.Font(self.fontType, self.fontSize).render(self.message, 1, self.color), (self.x, self.y))
- 
+
+class Button(GObj):
+
+    def __init__(self, text, fontsize, fontcolor, bkgcolor, x, y, width = "auto",
+                    height = "auto", fonttype = None):
+        GObj.__init__(self, bkgcolor, x, y)
+        self.text = text
+        self.fontsize = fontsize
+        self.fonttype = fonttype
+        self.fontcolor = fontcolor
+        self.width = width
+        self.height = height
+        self.bkgcolor = bkgcolor
+        self._update()
+
+    def _update(self):
+        """
+        Renders the text and changes the width and height if set to auto
+        gets called when any sets are called.
+        Direct manipulation of the variables will not cause the update to happen (yet?)
+        """
+        self.drawn_font = pygame.font.Font(None, self.fontsize)
+        self.drawn_text = self.drawn_font.render(self.text, 1, self.fontcolor)
+        if type(self.width) is type("") and self.width == "auto":
+            self.width = self.drawn_text.get_width()
+
+        if type(self.height) is type("") and self.height == "auto":
+            self.height = self.drawn_text.get_height()
+
+        self.back = Rectangle(self.width, self.height, self.bkgcolor, x=self.x, y=self.y)
+
+    def draw(self, window):
+        if self.visible:
+            self.back.draw(window)
+            window.blit(self.drawn_text, (self.x, self.y))
+
+
 def collides(obj1, obj2):
     if obj1 is None or obj2 is None or not world.inWorld(obj1) or not world.inWorld(obj2):
         return False
@@ -310,4 +346,4 @@ def collides(obj1, obj2):
         ymax = box1[0][1]
         h = box2[1][1] - box2[0][1]
     return xmax - xmin < w and ymax - ymin < h
- 
+

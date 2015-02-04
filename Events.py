@@ -28,7 +28,7 @@ JOYBUTTONUP      joy, button
 JOYBUTTONDOWN    joy, button
 VIDEORESIZE      size, w, h
 VIDEOEXPOSE      none
-USEREVENT    
+USEREVENT
 '''
 def eraseEvents():
     pygame.event.set_blocked(pygame.ACTIVEEVENT)
@@ -45,7 +45,7 @@ def eraseEvents():
     pygame.event.set_blocked(pygame.VIDEORESIZE)
     pygame.event.set_blocked(pygame.VIDEOEXPOSE)
     pygame.event.set_blocked(pygame.USEREVENT)
-    
+
 #### Vars for mouse dragged
 g.draggedEventActive = False
 g.mouseDown = False
@@ -75,33 +75,33 @@ def updateEvents():
                 g.mouseDown = False
             #print(g.mouseDown)
             if g.mouseDown and (evt.type is pygame.MOUSEMOTION):
-                EventList["MouseDragged"](evt) 
-        
+                EventList["MouseDragged"](evt)
+
 def addMouseClickedEvent(handle):
     #pygame.event.set_allowed(pygame.MOUSEBUTTONDOWN)
     EventList[pygame.event.event_name(pygame.MOUSEBUTTONDOWN)] = handle
     #print(EventList)
-    
+
 def addMouseReleasedEvent(handle):
     pygame.event.set_allowed(pygame.MOUSEBUTTONUP)
     EventList[pygame.event.event_name(pygame.MOUSEBUTTONUP)] = handle
     #print(EventList)
-    
+
 def addMouseMovedEvent(handle):
     pygame.event.set_allowed(pygame.MOUSEMOTION)
     EventList[pygame.event.event_name(pygame.MOUSEMOTION)] = handle
     #print(EventList)
-    
+
 def addKeyPressedEvent(handle):
     pygame.event.set_allowed(pygame.KEYDOWN)
     EventList[pygame.event.event_name(pygame.KEYDOWN)] = handle
     #print(EventList)
-    
+
 def addKeyReleasedEvent(handle):
     pygame.event.set_allowed(pygame.KEYUP)
     EventList[pygame.event.event_name(pygame.KEYUP)] = handle
     #print(EventList)
-        
+
 def addMouseDraggedEvent(handle):
     pygame.event.set_allowed(pygame.MOUSEBUTTONDOWN)
     pygame.event.set_allowed(pygame.MOUSEBUTTONUP)
@@ -114,7 +114,7 @@ def addMouseDraggedEvent(handle):
         EventList[pygame.event.event_name(pygame.MOUSEMOTION)] = noHandle
     g.draggedEventActive = True
     EventList["MouseDragged"] = handle
-    
+
 def waitForClick():
     cont = True
     while(cont):
