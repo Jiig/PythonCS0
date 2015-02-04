@@ -291,8 +291,12 @@ class Button(GObj):
         self.fontsize = fontsize
         self.fonttype = fonttype
         self.fontcolor = fontcolor
-        self.width = width
-        self.height = height
+        if type(width) is not type(""):
+            self.drawn_width = width
+            self.width = width
+        if type(height) is not type(""):
+            self.drawn_height = height
+            self.height = height
         self.bkgcolor = bkgcolor
         self._update()
 
@@ -319,6 +323,14 @@ class Button(GObj):
 
     def setText(self, text):
         self.text = text
+        self._update()
+
+    def setFontType(self, type):
+        self.fonttype = type
+        self._update()
+
+    def setFontSize(self, size):
+        self.fontsize = size
         self._update()
 
     def isClicked(self, evt):
