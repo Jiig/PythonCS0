@@ -24,9 +24,9 @@ def mouseClick(evt):
 
 def key(evt):
     if evt.key == KEY_A:
-        moveForward(b)
+        sendForward(b)
     if evt.key == KEY_B:
-        moveBackward(b)
+        sendBackward(b)
 
 mouseClickedEvent(mouseClick)
 mouseReleasedEvent(printEvent)
