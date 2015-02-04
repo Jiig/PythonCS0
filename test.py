@@ -16,11 +16,15 @@ add(b)
 def printEvent(evt):
     print(str(evt))
 
+def clicky(evt):
+    if b.isClicked(evt):
+        b.setText("CLICK!")
+
 def mouseDrag(evt):
     charlie.setLocation(evt.pos[0], evt.pos[1])
 
 
-mouseClickedEvent(printEvent)
+mouseClickedEvent(clicky)
 mouseReleasedEvent(printEvent)
 #mouseMovedEvent(mouseClick)
 mouseDraggedEvent(mouseDrag)

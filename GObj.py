@@ -305,17 +305,29 @@ class Button(GObj):
         self.drawn_font = pygame.font.Font(None, self.fontsize)
         self.drawn_text = self.drawn_font.render(self.text, 1, self.fontcolor)
         if type(self.width) is type("") and self.width == "auto":
-            self.width = self.drawn_text.get_width()
+            self.drawn_width = self.drawn_text.get_width()
 
         if type(self.height) is type("") and self.height == "auto":
-            self.height = self.drawn_text.get_height()
+            self.drawn_height = self.drawn_text.get_height()
 
-        self.back = Rectangle(self.width, self.height, self.bkgcolor, x=self.x, y=self.y)
+        self.back = Rectangle(self.drawn_width, self.drawn_height, self.bkgcolor, x=self.x, y=self.y)
 
     def draw(self, window):
         if self.visible:
             self.back.draw(window)
             window.blit(self.drawn_text, (self.x, self.y))
+
+    def setText(self, text):
+        self.text = text
+        self._update()
+
+    def isClicked(self, evt):
+        x = evt.pos[0]
+        y = evt.pos[1]
+        if x > self.x and x < self.x + self.drawn_width:
+            if y > self.y and y < self.y + self.drawn_height:
+                return True
+        return False
 
 
 def collides(obj1, obj2):
