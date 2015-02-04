@@ -293,10 +293,10 @@ class Button(GObj):
         self.fontcolor = fontcolor
         if type(width) is not type(""):
             self.drawn_width = width
-            self.width = width
+        self.width = width
         if type(height) is not type(""):
             self.drawn_height = height
-            self.height = height
+        self.height = height
         self.bkgcolor = bkgcolor
         self._update()
 

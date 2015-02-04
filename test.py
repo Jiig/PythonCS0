@@ -11,11 +11,14 @@ charlie = Circle(10, RED, 0,0) + Circle(10, YELLOW, 5,5) #+ Rectangle(10,15, AQU
 b = Rectangle(10,15, AQUA, 5, 10)
 c = Rectangle(10, 15, BROWN, 5, 15)
 #add(charlie, 321, 114)
-
+d = Button("This is a button", 30, BLACK, WHITE, 100, 100)
 add(b)
 add(c)
+add(d)
 
-
+def clicky(evt):
+    if d.isClicked(evt):
+        d.setText("CLICK!")
 
 def printEvent(evt):
     print(str(evt))
@@ -34,7 +37,7 @@ def key(evt):
 
 mouseClickedEvent(mouseClick)
 
-mouseReleasedEvent(printEvent)
+mouseReleasedEvent(clicky)
 #mouseMovedEvent(mouseClick)
 mouseDraggedEvent(mouseDrag)
 keyPressedEvent(key)
