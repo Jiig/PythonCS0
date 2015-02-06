@@ -10,7 +10,7 @@ charlie = Circle(10, RED, 0,0) + Circle(10, YELLOW, 5,5) #+ Rectangle(10,15, AQU
 
 b = Rectangle(10,15, AQUA, 5, 10)
 c = Rectangle(10, 15, BROWN, 5, 15)
-#add(charlie, 321, 114)
+add(charlie, 321, 114)
 d = Button("This is a button", 30, BLACK, WHITE, 100, 100)
 add(b)
 add(c)
@@ -43,7 +43,7 @@ mouseDraggedEvent(mouseDrag)
 keyPressedEvent(key)
 keyReleasedEvent(printEvent)
 
-start(thread = False)
+start(thread = True)
 #start()
 
 waitForClick()

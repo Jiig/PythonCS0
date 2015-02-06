@@ -2,7 +2,7 @@
 Author: Graham Montgomery
 Western State Colorado University
 
-This file contains all the graphic logic for the project. 
+This file contains all the graphic logic for the project.
 '''
 
 # External Imports
@@ -40,7 +40,7 @@ def flipOnce():
         gobj.release()
     world.release()
     g.pygame.display.flip()
-    
+
 
 GraphicThread = threading.Thread(target=flipDisplay, args=())
 
@@ -55,13 +55,13 @@ def start(world, thread):
     g.window = g.pygame.display.set_mode(size)
     g.pygame.display.set_caption(world.caption)
     g.window.fill(world.color)
-    g.pygame.display.flip() 
+    g.pygame.display.flip()
     g.startTime = time.time()
     g.running = True
-    if thread:     
+    if thread:
         g.threadCount += 1
         GraphicThread.start()
-    
+
 def stop():
     '''
     stops the graphic thread

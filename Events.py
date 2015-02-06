@@ -116,6 +116,7 @@ def addMouseDraggedEvent(handle):
     EventList["MouseDragged"] = handle
 
 def waitForClick():
+    Engine.flipOnce()
     cont = True
     while(cont):
         for evt in pygame.event.get():
