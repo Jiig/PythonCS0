@@ -7,13 +7,12 @@ This file holds the Graphic objects for the library
 
 # External imports
 import threading
-import math
+
 
 # Internal imports
 from Globals import *
 from Constants import *
 
-import Engine
 
 class GObj:
 
