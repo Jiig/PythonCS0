@@ -284,19 +284,12 @@ class Label(GObj):
 
 class Button(GObj):
 
-    def __init__(self, text, fontsize, fontcolor, bkgcolor, x, y, width = "auto",
-                    height = "auto", fonttype = None):
+    def __init__(self, text, fontsize, fontcolor, bkgcolor, x, y, fonttype = None):
         GObj.__init__(self, bkgcolor, x, y)
         self.text = text
         self.fontsize = fontsize
         self.fonttype = fonttype
         self.fontcolor = fontcolor
-        if type(width) is not type(""):
-            self.drawn_width = width
-        self.width = width
-        if type(height) is not type(""):
-            self.drawn_height = height
-        self.height = height
         self.bkgcolor = bkgcolor
         self._update()
 
@@ -308,11 +301,9 @@ class Button(GObj):
         """
         self.drawn_font = pygame.font.Font(None, self.fontsize)
         self.drawn_text = self.drawn_font.render(self.text, 1, self.fontcolor)
-        if type(self.width) is type("") and self.width == "auto":
-            self.drawn_width = self.drawn_text.get_width()
 
-        if type(self.height) is type("") and self.height == "auto":
-            self.drawn_height = self.drawn_text.get_height()
+        self.drawn_width = self.drawn_text.get_width()
+        self.drawn_height = self.drawn_text.get_height()
 
         self.back = Rectangle(self.drawn_width, self.drawn_height, self.bkgcolor, x=self.x, y=self.y)
 
