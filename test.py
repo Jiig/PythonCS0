@@ -3,7 +3,7 @@ from cs0 import *
 setColor(BLUE)
 setCaption("hello")
 
-charlie = Circle(10, RED, 0,0) + Circle(10, YELLOW, 5,5) #+ Rectangle(10,15, AQUA,0, 10)
+charlie = Circle(10, RED, 0,0) + Circle(10, YELLOW, 5,5) + Rectangle(10,15, AQUA,0, 10)
 
 #print(type(charlie))
 #add(sam, 326, 119)
