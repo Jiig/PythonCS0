@@ -88,7 +88,8 @@ def objectAt(pos): #--------------- several changes here
     #p = Rectangle(1,1,WHITE, pos[0], pos[1]) #---don't know why this doesn't work
     p = Rectangle(1, 1, WHITE)                #---but these 2 statements
     p.setLocation(pos[0], pos[1])             #---make it work
-    for obj in g.world.world: #------------ missing last .world I think
+    #Reversing the world list inorder to get stack ordering
+    for obj in reversed(g.world.world): #------------ missing last .world I think
         if type(obj) is not Label and collides(obj,p): #can't collide with a Label
                 return obj
     return None

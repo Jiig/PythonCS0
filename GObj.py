@@ -333,8 +333,19 @@ class Button(GObj):
 
 
 def collides(obj1, obj2):
+    """
+    Commenting out because checking if the object is in the world doesnt make sense
+    and is breaking objectAt(). Will just check for None instead.
+
+    Saving just incase - Lucas 3/30/15
+
     if obj1 is None or obj2 is None or not world.inWorld(obj1) or not world.inWorld(obj2):
+        print "Given none obj or not in world"
         return False
+    """
+    if obj1 is None or obj2 is None:
+        return False
+
     box1 = obj1._getBox()
     box2 = obj2._getBox()
     xmin = 0
