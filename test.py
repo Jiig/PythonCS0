@@ -16,6 +16,9 @@ add(b)
 add(c)
 add(d)
 
+s = SoundClip('pacman_beginning.wav')
+s.setVolume(0.1)
+
 def clicky(evt):
     if d.isClicked(evt):
         d.setText("CLICK!")
@@ -55,6 +58,9 @@ while(count < 500):
     charlie.move(2, 2)
     print charlie._getBox()
     pause(25)
+    s.play()
+    pause(200)
+    s.stop()
     count = count + 1
     #print(count)
 

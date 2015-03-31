@@ -9,7 +9,10 @@ import time
 import random
 
 import Globals as g
+from Sound import *
+
 g.pygame.init()
+
 import Engine
 import Events
 
