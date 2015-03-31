@@ -135,20 +135,39 @@ class GComp(GObj):
         return self
 
     def _getBox(self):
+
         maxX = 0
         maxY = 0
-        minX = 0
-        minY = 0
+        minX = 10000
+        minY = 10000
+        """
         for obj in self.objs:
+            print obj.x, obj.y
             if obj.x >= maxX:
                 maxX = obj.x
-            elif obj.x <= minX:
+            if obj.x <= minX:
                 minX = obj.x
             if obj.y >= maxY:
                 maxY = obj.y
-            elif obj.y <= minY:
+            if obj.y <= minY:
                 minY = obj.y
         return ((minX, minY), (maxX,maxY))
+        """
+        for obj in self.objs:
+            min, max = obj._getBox()
+            #Check min and max X
+            if max[0] >= maxX:
+                maxX = max[0]
+            if min[0] <= minX:
+                minX = min[0]
+
+            #Check min and max Y
+            if max[1] >= maxY:
+                maxY = max[1]
+            if min[1] <= minY:
+                minY = min[1]
+        return ((minX, minY), (maxX, maxY))
+
 
 class Circle(GObj):
 
