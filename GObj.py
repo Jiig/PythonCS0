@@ -334,8 +334,8 @@ class Button(GObj):
 
 def collides(obj1, obj2):
     """
-    Commenting out because checking if the object is in the world doesnt make sense
-    and is breaking objectAt(). Will just check for None instead.
+    Commenting out because checking if the object is in the world
+    is breaking objectAt(). Will just check for None instead.
 
     Saving just incase - Lucas 3/30/15
 
