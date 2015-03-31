@@ -49,6 +49,7 @@ start()
 waitForClick()
 count = 0
 while(count < 500):
+    print(charlie._getBox())
     if charlie.x > window.width:
         charlie.setLocation(0,0)
     charlie.move(2, 2)
