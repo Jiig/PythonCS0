@@ -123,12 +123,15 @@ def sendToBack(obj):
 def randomSeed(val):
     random.seed(val)
 
-def randomInt(min, max = None): #clever, I didn't know about None
+def randomInt(min, max = None, step = None): #clever, I didn't know about None
     #returns random int in range [min, max] or [0, min]
-    if max is None:
-        return random.randint(0, min)
+    if step is None:
+        if max is None:
+            return random.randint(0, min)
+        else:
+            return random.randint(min, max)
     else:
-        return random.randint(min, max)
+        return random.randrange(min, max, step)
 
 def randomDouble(min, max = None):
     #return random double in range [min, max) or [0, min)
@@ -147,6 +150,7 @@ def randomProbability(p):
     r = randomDouble(1)
     if r < p: return True
     else: return False
+
 
 def waitForClick():
     Events.waitForClick()
